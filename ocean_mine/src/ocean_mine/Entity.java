@@ -6,6 +6,6 @@ package ocean_mine;
  */
 public interface Entity {
     
-    public int Description_ID();
+    public int descriptionID();
     
 }

@@ -6,6 +6,12 @@ package ocean_mine;
  */
 public class Player implements Entity {
     
+    @Override
+    public int descriptionID()
+    {
+        return 0;
+    }
+    
     // these variables allow fluid interaction with the DBMS
     private int id;
     private int room_id;
