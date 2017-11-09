@@ -6,4 +6,9 @@ package ocean_mine;
  */
 public class NPC implements Entity {
     
+    public int Description_ID() 
+    {
+        return 1;
+    }
+    
 }
