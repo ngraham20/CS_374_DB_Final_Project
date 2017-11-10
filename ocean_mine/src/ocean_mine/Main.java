@@ -2,7 +2,7 @@ package ocean_mine;
 
 /**
  *
- * @author loder
+ * @author ngraham20
  */
 public class Main {
 
@@ -10,7 +10,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        DBAccess dataBase = new DBAccess();
+        dataBase.connect();
     }
     
 }
