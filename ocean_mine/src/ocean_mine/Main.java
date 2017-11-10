@@ -13,5 +13,4 @@ public class Main {
         DBAccess dataBase = new DBAccess();
         dataBase.connect();
     }
-    
 }
