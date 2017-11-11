@@ -8,6 +8,7 @@ import java.util.*;
 public class DBAccess {
     
     private Connection conn;
+    private ResultSet rs;
     
     DBAccess()
     {
@@ -65,11 +66,16 @@ public class DBAccess {
     // Another statement could return data in the form of a ResultSet
     // public List getInventory() would be an example.
     
-    public ResultSet getDiscoveredRooms() throws SQLException
+    public void queryMapData() throws SQLException
     {
-        String query = ""; // this query should be specific to this method
+        String query = "SELECT r.id, r.north, r.south, r.east, r.west FROM rooms r";
+        
         Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery(query);
-        return rs;
+        rs = st.executeQuery(query);
+    }
+    
+    public ResultSet getQueryResults() throws SQLException
+    {
+        return this.rs;
     }
 }

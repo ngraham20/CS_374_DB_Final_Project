@@ -1,5 +1,7 @@
 package ocean_mine;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author ngraham20, sholzer20
@@ -15,7 +17,8 @@ public class Game {
         // initializes the database
         database = new DBAccess();
         map = new Map();
-        map.assimilateDatabase(database);
+        map.linkDatabase(database);
+                
     }
     public void menu()
     {
@@ -23,5 +26,16 @@ public class Game {
     public void start()
     {
         database.connect();
+        
+        try
+        {
+        map.update();
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e);
+        }
+        
+        map.print();
     }
 }
