@@ -23,7 +23,7 @@ public class Game {
     public void menu()
     {
     }
-    public void start() throws Exception
+    public void start()
     {
         database.connect();
         

@@ -104,7 +104,7 @@ public class Map {
         }
     }
     
-    public void print(int floor) throws Exception
+    public void print(int floor)
     {
         if (floor <= 0)
             throw new UnsupportedOperationException("The floor number must be 1 or greater.");
