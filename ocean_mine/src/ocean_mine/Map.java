@@ -11,10 +11,18 @@ public class Map {
     
     String map[][][][];
     
+    int currentX;
+    int currentY;
+    int currentZ;
+    
     Map()
     {
         //  {Z Y R X : data is stored at X }
         map  = new String[5][10][10][3];
+        
+        currentX = 0;
+        currentY = 0;
+        currentZ = 0;
     }
     
     public void linkDatabase(DBAccess database)
@@ -49,15 +57,24 @@ public class Map {
             w = rs.getBoolean("west");
             
             if (id > 0) // if there's at least one digit
+            {
                 x = id%10;
+                currentX++;
+            }
             else
                 x = 0;
-            if (id >= 10) // if there's at least two digits
+            if (id > 9) // if there's at least two digits
+            {
                 y = (id/10)%10;
+                currentY++;
+            }
             else
                 y = 0;
-            if (id >= 100) // if there's at least three digits
+            if (id > 99) // if there's at least three digits
+            {
                 z = (id/100)%10;
+                currentZ++;
+            }
             else z = 0;
             
             if (n)
@@ -87,29 +104,31 @@ public class Map {
         }
     }
     
-    public void print()
+    public void print(int floor) throws Exception
     {
-        // loops through the map system, printing it out
-        for (int z = 0; z < 5; z++) // for each floor
+        if (floor <= 0)
+            throw new UnsupportedOperationException("The floor number must be 1 or greater.");
+        
+    // loops through the map system, printing it out
+        System.out.println("-----------------------------------------------------------");
+        System.out.println("-    -    -    -    -    [Floor " + (floor) + "]    -    -    -    -    -");
+        System.out.println("-----------------------------------------------------------");
+        for (int y = 0; y < currentY-1; y++) // for each column y
+
         {
-            for (int y = 0; y < 10; y++) // for each column y
-                
+            for (int row = 0; row < 3; row++) // for every subrow
             {
-                for (int row = 0; row < 3; row++) // for every subrow
+                for (int x = 0; x < currentX; x++) // for every datablock
                 {
-                    for (int x = 0; x < 10; x++) // for every datablock
-                    {
-                        if(map[z][y][x][row] != null)
-                            System.out.print(map[z][y][x][row]);
-                        else
-                            System.out.print("     ");
-                        System.out.print(" ");
-                    }
-                    System.out.print("\n"); // return after each sub row
+                    if(map[floor-1][y][x][row] != null)
+                        System.out.print(map[floor-1][y][x][row]);
+                    else
+                        System.out.print("     ");
+                    System.out.print(" ");
                 }
-//                if (map[z][y] != null)
-//                    System.out.print("\n"); // return after each full row
+                System.out.print("\n"); // return after each sub row
             }
         }
+        System.out.println("-----------------------------------------------------------");
     }
 }

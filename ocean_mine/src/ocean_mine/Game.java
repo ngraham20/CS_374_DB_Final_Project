@@ -23,7 +23,7 @@ public class Game {
     public void menu()
     {
     }
-    public void start()
+    public void start() throws Exception
     {
         database.connect();
         
@@ -36,6 +36,6 @@ public class Game {
             System.out.println(e);
         }
         
-        map.print();
+        map.print(1);
     }
 }
