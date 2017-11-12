@@ -9,8 +9,9 @@ package ocean_mine;
  */
 public class Achievement {
     
-    String name;
-    boolean unlocked;
+    private final String name;
+    private String description;
+    private boolean unlocked;
     
     Achievement(String name)
     {
@@ -18,10 +19,16 @@ public class Achievement {
         unlocked = false;
     }
 
+    public boolean isUnlocked()
+    {
+        return this.unlocked;
+    }
     public void unlock()
     {
         this.unlocked = true;
         
-        // TODO print achievement unlocked banner
+        System.out.println("----------------------------------------------------");
+        System.out.println("   <<Achievement Unlocked: " + name + ">>   ");
+        System.out.println("----------------------------------------------------");
     }
 }

@@ -11,6 +11,10 @@ public class Game {
     DBAccess database;
     Map map;
     
+    Achievement helpMe;
+    Achievement takingInventory;
+    Achievement dropTheBass;
+    Achievement whereAmI;
     
     Game()
     {
@@ -23,8 +27,10 @@ public class Game {
         // links the map system to the system database
         map.linkDatabase(database);
         
-        // creates the achievement list for the game
-        createAchievementList();
+        helpMe = new Achievement("Help Me");
+        takingInventory = new Achievement("Taking Inventory");
+        dropTheBass = new Achievement("Drop the Bass");
+        whereAmI = new Achievement("Where Am I?");
                 
     }
     public void menu()
@@ -44,12 +50,10 @@ public class Game {
         }
         
         map.print(1);
+        if (!whereAmI.isUnlocked())
+        {
+            whereAmI.unlock();
+        }
     }
-    
-    private void createAchievementList()
-    {
-        Achievement helpMe = new Achievement("Help Me");
-        Achievement takingInventory = new Achievement("Taking Inventory");
-        Achievement dropTheBass = new Achievement("Drop the Bass");
-    }
+
 }
