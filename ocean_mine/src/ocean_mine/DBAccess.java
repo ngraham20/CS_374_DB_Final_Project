@@ -68,7 +68,12 @@ public class DBAccess {
     
     public void queryMapData() throws SQLException
     {
-        String query = "SELECT r.id, r.north, r.south, r.east, r.west FROM rooms r";
+        String query = "SELECT r.id, r.discovered AS discovered, N.id AS north, S.id AS south, E.id AS east, W.id AS west " +
+                       "FROM rooms AS r " +
+                       "LEFT JOIN rooms AS N ON r.north = N.id " +
+                       "LEFT JOIN rooms AS S ON r.south = S.id " +
+                       "LEFT JOIN rooms AS E ON r.east = E.id " +
+                       "LEFT JOIN rooms AS W ON r.west = W.id ";
         
         Statement st = conn.createStatement();
         rs = st.executeQuery(query);

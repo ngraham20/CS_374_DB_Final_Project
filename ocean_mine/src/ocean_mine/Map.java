@@ -43,6 +43,7 @@ public class Map {
         int z;
         int y;
         int x;
+        int discovered;
         boolean n;
         boolean s;
         boolean e;
@@ -51,6 +52,7 @@ public class Map {
         while (rs.next())
         {
             id = rs.getInt("id");
+            discovered = rs.getInt("discovered");
             n = rs.getBoolean("north");
             s = rs.getBoolean("south");
             e = rs.getBoolean("east");
@@ -77,30 +79,34 @@ public class Map {
             }
             else z = 0;
             
-            if (n)
+            if (discovered == 1) // if the current room is discovered
             {
-                map[z][y][x][0] = "--|--";
+                // manipulate the current room
+                if (n)
+                {
+                    map[z][y][x][0] = "--|--";
+                }
+                else 
+                    map[z][y][x][0] = "-----";
+                if (w)
+                {
+                    map[z][y][x][1] = "-   ";
+                }
+                else
+                    map[z][y][x][1] = "|   ";
+                if (e)
+                {
+                    map[z][y][x][1] += "-";
+                }
+                else
+                    map[z][y][x][1] += "|";
+                if (s)
+                {
+                    map[z][y][x][2] = "--|--";
+                }
+                else
+                    map[z][y][x][2] = "-----";
             }
-            else 
-                map[z][y][x][0] = "-----";
-            if (w)
-            {
-                map[z][y][x][1] = "-   ";
-            }
-            else
-                map[z][y][x][1] = "|   ";
-            if (e)
-            {
-                map[z][y][x][1] += "-";
-            }
-            else
-                map[z][y][x][1] += "|";
-            if (s)
-            {
-                map[z][y][x][2] = "--|--";
-            }
-            else
-                map[z][y][x][2] = "-----";
         }
     }
     
