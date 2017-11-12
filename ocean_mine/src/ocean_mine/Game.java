@@ -16,8 +16,15 @@ public class Game {
     {
         // initializes the database
         database = new DBAccess();
+        
+        // initializes the map system
         map = new Map();
+        
+        // links the map system to the system database
         map.linkDatabase(database);
+        
+        // creates the achievement list for the game
+        createAchievementList();
                 
     }
     public void menu()
@@ -37,5 +44,12 @@ public class Game {
         }
         
         map.print(1);
+    }
+    
+    private void createAchievementList()
+    {
+        Achievement helpMe = new Achievement("Help Me");
+        Achievement takingInventory = new Achievement("Taking Inventory");
+        Achievement dropTheBass = new Achievement("Drop the Bass");
     }
 }

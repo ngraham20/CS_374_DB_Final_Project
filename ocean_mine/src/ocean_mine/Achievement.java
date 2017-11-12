@@ -9,20 +9,19 @@ package ocean_mine;
  */
 public class Achievement {
     
-    public enum List
-    {
-        Drop_The_Bass,
-        Help_Me,
-        Taking_Inventory
-    }
+    String name;
+    boolean unlocked;
     
-    Achievement()
+    Achievement(String name)
     {
-        
+        this.name = name;
+        unlocked = false;
     }
 
-    public void unlockAchievement(List achievement)
+    public void unlock()
     {
+        this.unlocked = true;
         
+        // TODO print achievement unlocked banner
     }
 }
