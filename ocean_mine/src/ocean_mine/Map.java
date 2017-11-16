@@ -39,6 +39,7 @@ public class Map {
         // send query to database to ask for a list of all discovered rooms
         database.queryMapData();
         
+        
         // redraw map listings to account for the new information
         rs = database.getQueryResults();
         
