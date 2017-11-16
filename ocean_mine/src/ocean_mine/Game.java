@@ -14,6 +14,8 @@ public class Game {
     DBAccess database;
     Map map;
     
+    UserInput ui;
+    
     Achievement helpMe;
     Achievement takingInventory;
     Achievement dropTheBass;
@@ -27,6 +29,9 @@ public class Game {
         // initializes the map system
         map = new Map();
         
+        // initializes the user input
+        ui = new UserInput();
+        
         // links the map system to the system database
         map.linkDatabase(database);
         
@@ -36,12 +41,21 @@ public class Game {
         whereAmI = new Achievement("Where Am I?");
                 
     }
-    public void menu()
+    public void mainMenu()
     {
+        
     }
     public void start()
     {
         database.connect();
+        
+        do
+        {
+            mainMenu();
+            
+            
+        } while (ui.getResponse() != Response.QUIT);
+        
         
         try
         {
