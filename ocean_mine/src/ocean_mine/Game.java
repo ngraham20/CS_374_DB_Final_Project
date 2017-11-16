@@ -1,3 +1,6 @@
+/*
+ * Project created by Nathaniel Graham and Sam Holzer
+ */
 package ocean_mine;
 
 import java.sql.SQLException;

@@ -2,10 +2,12 @@ package ocean_mine;
 
 /**
  *
- * @author loder
+ * @author ngraham20, sholzer20
  */
 public interface Entity {
-    
-    public int descriptionID();
+
+    public int getDescriptionID();
+    public int getID();
+    public int getInventoryID();
     
 }

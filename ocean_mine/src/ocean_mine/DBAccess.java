@@ -1,9 +1,12 @@
+/*
+ * Project created by Nathaniel Graham and Sam Holzer
+ */
 package ocean_mine;
 import java.sql.*;
 import java.util.*;
 /**
  *
- * @author ngraham20
+ * @author ngraham20, sholzer20
  */
 public class DBAccess {
     
