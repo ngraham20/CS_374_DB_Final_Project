@@ -62,6 +62,11 @@ public class DBAccess {
         return false;
     }
     
+     public ResultSet getQueryResults() throws SQLException
+    {
+        return this.rs;
+    }
+     
     // TODO add methods to do specific queries
     // public void walk(DIRECTION) would be an example, with the SQL
     // statement specific to walking in a direction inside the method
@@ -77,6 +82,7 @@ public class DBAccess {
         rs = st.executeQuery(query);
     }
     
+<<<<<<< HEAD
     public void discoverRoom(int roomId) throws SQLException
     {
         String query = "CALL discoverRoom(" + roomId + ");";
@@ -97,4 +103,7 @@ public class DBAccess {
     {
         return this.rs;
     }
+=======
+   
+>>>>>>> 910dc4463643ea9381be0566359236e38c0d4e05
 }

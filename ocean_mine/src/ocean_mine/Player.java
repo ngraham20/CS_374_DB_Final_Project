@@ -2,9 +2,30 @@ package ocean_mine;
 
 /**
  *
- * @author loder
+ * @author ngraham20, sholzer20
  */
 public class Player implements Entity {
+    
+    // these variables allow fluid interaction with the DBMS
+    private int id;
+    private int room_id;
+    private int inventory_id;
+    private int description_id;
+    
+    
+    Inventory inventory = new Inventory();
+    
+    
+    public enum Action
+    {
+        WALK, USE, TALK, READ, LOOK, TAKE, GIVE
+    }
+    
+    
+    public enum Direction
+    {
+        NORTH, SOUTH, EAST, WEST, UP, DOWN
+    }
     
     Player()
     {
@@ -50,27 +71,6 @@ public class Player implements Entity {
     public int getRoomID()
     {
         return room_id;
-    }
-    
-    // these variables allow fluid interaction with the DBMS
-    private int id;
-    private int room_id;
-    private int inventory_id;
-    private int description_id;
-    
-    
-    Inventory inventory = new Inventory();
-    
-    
-    public enum Action
-    {
-        WALK, USE, TALK, READ, LOOK, TAKE, GIVE
-    }
-    
-    
-    public enum Direction
-    {
-        NORTH, SOUTH, EAST, WEST, UP, DOWN
     }
     
     public boolean performAction(Action action)
