@@ -31,4 +31,9 @@ public class Achievement {
         System.out.println("   <<Achievement Unlocked: " + name + ">>   ");
         System.out.println("----------------------------------------------------");
     }
+    
+    public String getDescription()
+    {
+        return description;
+    }
 }
