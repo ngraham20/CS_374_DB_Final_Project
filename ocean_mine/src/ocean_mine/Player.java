@@ -6,16 +6,57 @@ package ocean_mine;
  */
 public class Player implements Entity {
     
-    @Override
-    public int descriptionID()
+    Player()
     {
-        return 0;
+    }
+    
+    private void setDescriptionID()
+    {
+        // TODO implement
+    }
+    
+    @Override
+    public int getDescriptionID()
+    {
+        return description_id;
+    }
+    
+    private void setInventoryID()
+    {
+        // TODO implement
+    }
+    
+    @Override
+    public int getInventoryID()
+    {
+        return inventory_id;
+    }
+    
+    private void setID()
+    {
+        // TODO implement
+    }
+    
+    @Override
+    public int getID()
+    {
+        return id;
+    }
+    
+    private void setRoomID()
+    {
+        // TODO implement
+    }
+    public int getRoomID()
+    {
+        return room_id;
     }
     
     // these variables allow fluid interaction with the DBMS
     private int id;
     private int room_id;
     private int inventory_id;
+    private int description_id;
     
     
     Inventory inventory = new Inventory();

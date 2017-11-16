@@ -5,7 +5,7 @@ package ocean_mine;
 
 /**
  *
- * @author ngraham20
+ * @author ngraham20, sholzer20
  */
 public class Achievement {
     
