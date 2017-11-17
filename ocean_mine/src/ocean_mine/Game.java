@@ -43,18 +43,30 @@ public class Game {
     }
     public void mainMenu()
     {
-        
+        // run the main menu
+            System.out.println("--------------------------------------------------------------");
+            System.out.println("                   Ocean Mining Facility                      ");
+            System.out.println("--------------------------------------------------------------");
+            System.out.println("                                                              ");
+            System.out.println("                     |Play||Help||Quit|                       ");
+            System.out.println("                                                              ");
+            System.out.println("--------------------------------------------------------------");
+            
+            
+            do
+            {
+                System.out.println("Enter a word.");
+                String values[] = {"Play", "Help", "Quit"};
+                ui.setExpectedValues(values);
+                ui.promptUser();
+            }
+            while (ui.getResponse() == Response.INVALID);
     }
     public void start()
     {
         database.connect();
         
-        do
-        {
-            mainMenu();
-            
-            
-        } while (ui.getResponse() != Response.QUIT);
+        mainMenu();
         
         
         try

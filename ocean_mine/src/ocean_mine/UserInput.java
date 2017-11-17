@@ -11,29 +11,49 @@ import java.util.Scanner;
 // this class organizes the user interface and is responsible for user input
 public class UserInput {
     
-    Response response;
-    Scanner sc;
-    String input;
+    private Response response;
+    private final Scanner sc;
+    private String input;
+    private String values[];
     
     UserInput()
     {
-        response = Response.CONTINUE;
         sc = new Scanner(System.in);
     }
     
-    public String getInput()
+    // prompts the user for input
+    public void promptUser()
     {
+        System.out.print(">>");
         input = sc.next();
-        if (input.equals("quit"))
-        {
-            response = Response.QUIT;
+        
+        // loops through the list of correct values desired for this prompt
+        for (String value : values) {
+            // if we find a value listed
+            if (input.toLowerCase().equals(value.toLowerCase()))
+            {
+                // return out of the method and respond with VALID
+                response = Response.VALID;
+                return;
+            }
         }
-        return input;
+        // if no correct values are found, respond with INVALID
+        response = Response.INVALID;
+    }
+    
+    public void setExpectedValues(String values[])
+    {
+        this.values = values;
     }
 
     public Response getResponse()
     {
         return response;
+    }
+    
+    public String getInput()
+    {
+        return input;
     }
     
 }
