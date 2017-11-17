@@ -82,5 +82,28 @@ public class DBAccess {
         rs = st.executeQuery(query);
     }
     
+<<<<<<< HEAD
+    public void discoverRoom(int roomId) throws SQLException
+    {
+        String query = "CALL discoverRoom(" + roomId + ");";
+        
+        Statement st = conn.createStatement();
+        st.executeQuery(query);
+    }
+    
+    public void resetRooms() throws SQLException
+    {
+        String query = "CALL resetRooms();";
+        
+        Statement st = conn.createStatement();
+        st.execute(query);
+    }
+    
+    public ResultSet getQueryResults() throws SQLException
+    {
+        return this.rs;
+    }
+=======
    
+>>>>>>> 910dc4463643ea9381be0566359236e38c0d4e05
 }
