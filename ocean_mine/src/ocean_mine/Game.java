@@ -55,9 +55,8 @@ public class Game {
             
             do
             {
-                System.out.println("Enter a word.");
-                String values[] = {"Play", "Help", "Quit"};
-                ui.setExpectedValues(values);
+                String validResponses[] = {"Play", "Help", "Quit"};
+                ui.setExpectedValues(validResponses);
                 ui.promptUser();
             }
             while (ui.getResponse() == Response.INVALID);
@@ -83,6 +82,11 @@ public class Game {
         {
             whereAmI.unlock();
         }
+    }
+    
+    private void play()
+    {
+        
     }
 
 }
