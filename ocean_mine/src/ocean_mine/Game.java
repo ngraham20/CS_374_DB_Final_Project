@@ -35,6 +35,8 @@ public class Game {
         
         player = new Player();
         
+        player.linkDatabase(database);
+        
         // links the map system to the system database
         map.linkDatabase(database);
         
@@ -76,7 +78,7 @@ public class Game {
     public void start()
     {
         // on begining the game, connect to the database
-       // database.connect();
+        database.connect();
         
         // go to main menu
         mainMenu();

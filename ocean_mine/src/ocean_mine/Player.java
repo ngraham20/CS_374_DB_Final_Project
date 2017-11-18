@@ -14,6 +14,7 @@ public class Player implements Entity {
     private int inventory_id;
     private int description_id;
     
+    private DBAccess database;
     private final Map map;
     private final Inventory inventory;
     private Response response;
@@ -29,6 +30,12 @@ public class Player implements Entity {
         map = new Map();
         inventory = new Inventory();
         response = Response.QUIT; // default is quit
+    }
+    
+    public void linkDatabase(DBAccess database)
+    {
+        this.database = database;
+        map.linkDatabase(database);
     }
     
     private void setDescriptionID()
@@ -199,16 +206,18 @@ public class Player implements Entity {
     {
         
         System.out.println("Printing Map");
-//        try
-//        {
-//        map.update();
-//        map.print(0);
-//        }
-//        catch (SQLException e)
-//        {
-//            System.out.println(e);
-//            return false;
-//        }
+        try
+        {
+        map.update();
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e);
+            return false;
+        }
+        
+        map.print(1);
+        
         return true;
     }
     
