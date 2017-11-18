@@ -9,5 +9,5 @@ package ocean_mine;
  */
 public enum Response
 {
-    VALID, INVALID
+    VALID, INVALID, QUIT, CONTINUE
 }

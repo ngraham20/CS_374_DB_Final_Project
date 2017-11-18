@@ -1,5 +1,7 @@
 package ocean_mine;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author ngraham20, sholzer20
@@ -12,14 +14,9 @@ public class Player implements Entity {
     private int inventory_id;
     private int description_id;
     
-    
-    Inventory inventory = new Inventory();
-    
-    
-    public enum Action
-    {
-        WALK, USE, TALK, READ, LOOK, TAKE, GIVE
-    }
+    private final Map map;
+    private final Inventory inventory;
+    private Response response;
     
     
     public enum Direction
@@ -29,6 +26,9 @@ public class Player implements Entity {
     
     Player()
     {
+        map = new Map();
+        inventory = new Inventory();
+        response = Response.QUIT; // default is quit
     }
     
     private void setDescriptionID()
@@ -73,38 +73,148 @@ public class Player implements Entity {
         return room_id;
     }
     
-    public boolean performAction(Action action)
+//    public boolean performAction(Action action)
+//    {
+//        switch (action)
+//        {
+//            case WALK:
+//                {
+//                // prompt user for direction
+//                String direction = "";
+//                switch (direction)
+//                    {
+//                    case "north":
+//                        move(Direction.NORTH);
+//                        return true;
+//                    case "south":
+//                        move(Direction.SOUTH);
+//                        return true;
+//                    case "east":
+//                        move(Direction.EAST);
+//                        return true;
+//                    case "west":
+//                        move(Direction.WEST);
+//                        return true;
+//                    case "up":
+//                        move(Direction.UP);
+//                        return true;
+//                    case "down":
+//                        move(Direction.DOWN);
+//                        return true;
+//                    }
+//                }
+//        }
+//        return false;
+//    }
+    
+    public boolean performPrimaryAction()
     {
-        switch (action)
+        UserInput ui = new UserInput();
+        String expectedValues[] = {"Walk", "Talk", "Take", "Give", "Use", "Push", "Look", "Read", "Map", "Quit"};
+        ui.setExpectedValues(expectedValues);
+        
+        // this should loop until a valid response is found
+        do
         {
-            case WALK:
-                {
-                // prompt user for direction
-                String direction = "";
-                switch (direction)
-                    {
-                    case "north":
-                        move(Direction.NORTH);
-                        return true;
-                    case "south":
-                        move(Direction.SOUTH);
-                        return true;
-                    case "east":
-                        move(Direction.EAST);
-                        return true;
-                    case "west":
-                        move(Direction.WEST);
-                        return true;
-                    case "up":
-                        move(Direction.UP);
-                        return true;
-                    case "down":
-                        move(Direction.DOWN);
-                        return true;
-                    }
-                }
+            ui.promptUser();
+        } while (ui.getResponse() == Response.INVALID);
+        
+        // by this point, the input should be valid
+        switch (ui.getInput().toLowerCase())
+        {
+            case "walk": performSAWalk();
+            break;
+            case "talk": performSATalk();
+            break;
+            case "take": performSATake();
+            break;
+            case "give": performSAGive();
+            break;
+            case "use": performSAUse();
+            break;
+            case "push": performSAPush();
+            break;
+            case "look": performSALook();
+            break;
+            case "read": performSARead();
+            break;
+            case "map": readMap(); // TODO change this to be read using the READ command Read->Map
+            break;
+            case "quit": response = Response.QUIT;
+            return true;
         }
+        response = Response.CONTINUE;
+        return true; 
+    }
+    
+    private boolean performSAWalk()
+    {
+        System.out.println("Walking");
         return false;
+    }
+    
+    private boolean performSATalk()
+    {
+        System.out.println("Talking");
+        return false;
+    }
+    
+    private boolean performSATake()
+    {
+        System.out.println("Taking");
+        return false;
+    }
+    
+    private boolean performSAGive()
+    {
+        System.out.println("Giving");
+        return false;
+    }
+    
+    private boolean performSAUse()
+    {
+        System.out.println("Using");
+        return false;
+    }
+    
+    private boolean performSAPush()
+    {
+        System.out.println("Pushing");
+        return false;
+    }
+    
+    private boolean performSALook()
+    {
+        System.out.println("Looking");
+        return false;
+    }
+    
+    private boolean performSARead()
+    {
+        System.out.println("Reading");
+        return false;
+    }
+    
+    private boolean readMap()
+    {
+        
+        System.out.println("Printing Map");
+//        try
+//        {
+//        map.update();
+//        map.print(0);
+//        }
+//        catch (SQLException e)
+//        {
+//            System.out.println(e);
+//            return false;
+//        }
+        return true;
+    }
+    
+    public Response getResponse()
+    {
+        return response;
     }
     
     public boolean move(Direction direction)

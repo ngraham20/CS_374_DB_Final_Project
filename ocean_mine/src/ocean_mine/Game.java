@@ -15,6 +15,7 @@ public class Game {
     Map map;
     
     UserInput ui;
+    Player player;
     
     Achievement helpMe;
     Achievement takingInventory;
@@ -32,6 +33,8 @@ public class Game {
         // initializes the user input
         ui = new UserInput();
         
+        player = new Player();
+        
         // links the map system to the system database
         map.linkDatabase(database);
         
@@ -47,9 +50,9 @@ public class Game {
             System.out.println("--------------------------------------------------------------");
             System.out.println("                   Ocean Mining Facility                      ");
             System.out.println("--------------------------------------------------------------");
-            System.out.println("                                                              ");
-            System.out.println("                     |Play||Help||Quit|                       ");
-            System.out.println("                                                              ");
+            System.out.println("                     ------------------                       ");
+            System.out.println("                    ||Play||Help||Quit||                      ");
+            System.out.println("                     ------------------                       ");
             System.out.println("--------------------------------------------------------------");
             
             
@@ -60,33 +63,39 @@ public class Game {
                 ui.promptUser();
             }
             while (ui.getResponse() == Response.INVALID);
+            
+            // presumably, by this point in the code, a correct response has been reached
+            switch (ui.getInput().toLowerCase())
+            {
+                case "play": play();
+                break;
+                case "help":
+                    break;
+            }
     }
     public void start()
     {
-        database.connect();
+        // on begining the game, connect to the database
+       // database.connect();
         
+        // go to main menu
         mainMenu();
-        
-        
-        try
-        {
-        map.update();
-        }
-        catch (SQLException e)
-        {
-            System.out.println(e);
-        }
-        
-        map.print(1);
-        if (!whereAmI.isUnlocked())
-        {
-            whereAmI.unlock();
-        }
     }
     
     private void play()
     {
-        
+        do
+        {
+            // describe room
+            System.out.println("Room Description 1");
+            
+            // list the things you can say
+            System.out.println("Type the word \"Map\"");
+            
+            // prompt the player for action
+            player.performPrimaryAction();
+            
+        } while (player.getResponse() == Response.CONTINUE);
     }
 
 }

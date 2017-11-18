@@ -39,6 +39,7 @@ public class UserInput {
         }
         // if no correct values are found, respond with INVALID
         response = Response.INVALID;
+        System.out.println("[System]: Invalid Response \"" + input + "\"");
     }
     
     public void setExpectedValues(String values[])
