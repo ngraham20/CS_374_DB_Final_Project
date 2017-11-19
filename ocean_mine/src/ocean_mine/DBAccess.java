@@ -96,6 +96,18 @@ public class DBAccess {
         String query = "CALL resetRooms();";
         
         Statement st = conn.createStatement();
-        st.execute(query);
+        st.executeQuery(query);
+    }
+    
+    public void takeItem(String item_name, int player_id) throws SQLException
+    {
+    }
+    
+    public void getRoomInventory(int player_id) throws SQLException
+    {
+        String query = "CALL getRoomInventory(" + player_id + ")";
+        
+        Statement st = conn.createStatement();
+        rs = st.executeQuery(query);
     }
 }

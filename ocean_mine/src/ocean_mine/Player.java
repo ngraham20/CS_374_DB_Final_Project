@@ -1,6 +1,6 @@
 package ocean_mine;
 
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  *
@@ -18,6 +18,7 @@ public class Player implements Entity {
     private final Map map;
     private final Inventory inventory;
     private Response response;
+    private final UserInput ui;
     
     
     public enum Direction
@@ -29,6 +30,7 @@ public class Player implements Entity {
     {
         map = new Map();
         inventory = new Inventory();
+        ui = new UserInput();
         response = Response.QUIT; // default is quit
     }
     
@@ -116,9 +118,12 @@ public class Player implements Entity {
     
     public boolean performPrimaryAction()
     {
-        UserInput ui = new UserInput();
         String expectedValues[] = {"Walk", "Talk", "Take", "Give", "Use", "Push", "Look", "Read", "Map", "Quit"};
         ui.setExpectedValues(expectedValues);
+        
+        System.out.print("||Walk||Talk||Take||Give||Use||\n"
+                        +"||Push||Look||Read||Map||Quit||\n");
+        //System.out.print("||\n");
         
         // this should loop until a valid response is found
         do
@@ -168,7 +173,54 @@ public class Player implements Entity {
     
     private boolean performSATake()
     {
-        System.out.println("Taking");
+        System.out.println("Which item would you like to take?");
+        ResultSet rs;
+        try
+        {
+            // query for the room's inventory for item names
+            database.getRoomInventory(id);
+            rs = database.getQueryResults();
+            
+            // print and store query results
+            String item_name;
+            String validInputs[] = new String[10];
+            int index = 0;
+            while (rs.next())
+            {
+                System.out.print("||");
+                item_name = rs.getString("name");
+                validInputs[index] = item_name;
+                System.out.print(item_name);
+                index++;
+            }
+            System.out.print("|| <Cancel> ||\n");
+            
+            // get user input
+            ui.setExpectedValues(validInputs);
+            do
+            {
+                
+                ui.promptUser();
+                
+            } while (ui.getResponse() == Response.INVALID);
+            
+            // assuming now that the input is valid, switch for the item
+            
+            for (int i = 0; i <= index; i++)
+            {
+                if (ui.getInput().equals(validInputs[i]))
+                {
+                    database.takeItem(ui.getInput(), id);
+                }
+            }
+            
+            
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e);
+        }
+        
         return false;
     }
     

@@ -89,10 +89,7 @@ public class Game {
         do
         {
             // describe room
-            System.out.println("Room Description 1");
-            
-            // list the things you can say
-            System.out.println("Type the word \"Map\"");
+            System.out.println("You are in a room, with things in it");
             
             // prompt the player for action
             player.performPrimaryAction();
