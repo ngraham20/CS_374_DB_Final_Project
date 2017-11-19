@@ -129,23 +129,23 @@ public class Player implements Entity {
         // by this point, the input should be valid
         switch (ui.getInput().toLowerCase())
         {
-            case "walk": performSAWalk();
+            case "walk": performSAWalk(); // TODO walk
             break;
-            case "talk": performSATalk();
+            case "talk": performSATalk(); // TODO talk
             break;
-            case "take": performSATake();
+            case "take": performSATake(); // TODO take
             break;
-            case "give": performSAGive();
+            case "give": performSAGive(); // TODO give
             break;
-            case "use": performSAUse();
+            case "use": performSAUse(); // TODO use
             break;
-            case "push": performSAPush();
+            case "push": performSAPush(); // TODO push
             break;
-            case "look": performSALook();
+            case "look": performSALook(); // TODO look
             break;
-            case "read": performSARead();
+            case "read": performSARead(); // TODO read
             break;
-            case "map": readMap(); // TODO change this to be read using the READ command Read->Map
+            case "map": readMap(); // TODO maybe change this to be read using the READ command Read->Map
             break;
             case "quit": response = Response.QUIT;
             return true;

@@ -5,7 +5,7 @@ package ocean_mine;
 import java.util.Scanner;
 /**
  *
- * @author ngraham20, sholzer20
+ * @author ngraham20
  */
 
 // this class organizes the user interface and is responsible for user input
