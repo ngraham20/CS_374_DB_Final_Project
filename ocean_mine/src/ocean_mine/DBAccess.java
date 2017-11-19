@@ -101,6 +101,10 @@ public class DBAccess {
     
     public void takeItem(String item_name, int player_id) throws SQLException
     {
+        String query = "CALL takeItem(" + item_name + ", " + player_id + ")";
+        
+        Statement st = conn.createStatement();
+        st.executeQuery(query);
     }
     
     public void getRoomInventory(int player_id) throws SQLException
