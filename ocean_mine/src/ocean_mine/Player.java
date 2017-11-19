@@ -204,13 +204,15 @@ public class Player implements Entity {
                 
             } while (ui.getResponse() == Response.INVALID);
             
-            // assuming now that the input is valid, switch for the item
+            String input = ui.getInput();
+            
+            // assuming now that the input is valid, loop for the item
             
             for (int i = 0; i <= index; i++)
             {
-                if (ui.getInput().equals(validInputs[i]))
+                if (input.equals(validInputs[i]))
                 {
-                    database.takeItem(ui.getInput(), id);
+                    database.takeItem(input, id);
                 }
             }
             
