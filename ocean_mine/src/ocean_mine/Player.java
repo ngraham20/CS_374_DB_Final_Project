@@ -183,16 +183,25 @@ public class Player implements Entity {
             
             // print and store query results
             String item_name;
-            String validInputs[] = new String[10];
+            String items[] = new String[10];
+            String validInputs[];
             int index = 0;
             while (rs.next())
             {
                 System.out.print("||");
                 item_name = rs.getString("name");
-                validInputs[index] = item_name;
+                items[index] = item_name;
                 System.out.print(item_name);
                 index++;
             }
+            items[index] = "cancel";
+            
+            // initializes the size of validInputs based on the number of items
+            validInputs = new String[index+1];
+            
+            // now load validInputs with all the real values of items
+            System.arraycopy(items, 0, validInputs, 0, index+1);
+            
             System.out.print("|| <Cancel> ||\n");
             
             // get user input
@@ -207,12 +216,17 @@ public class Player implements Entity {
             String input = ui.getInput();
             
             // assuming now that the input is valid, loop for the item
-            
-            for (int i = 0; i <= index; i++)
+            if (input.toLowerCase().equals("cancel"))
+                return false;
+            else
             {
-                if (input.equals(validInputs[i]))
+                for (int i = 0; i <= index; i++)
                 {
-                    database.takeItem(input, id);
+                    if (input.toLowerCase().equals(validInputs[i]))
+                    {
+                        database.takeItem(input, id);
+                        return true;
+                    }
                 }
             }
             

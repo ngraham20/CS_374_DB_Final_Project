@@ -72,7 +72,7 @@ public class DBAccess {
     // statement specific to walking in a direction inside the method
     
     // Another statement could return data in the form of a ResultSet
-    // public List getInventory() would be an example.
+    // public ResultSet getInventory() would be an example.
     
     public void queryMapData() throws SQLException
     {
@@ -101,7 +101,7 @@ public class DBAccess {
     
     public void takeItem(String item_name, int player_id) throws SQLException
     {
-        String query = "CALL takeItem(" + item_name + ", " + player_id + ")";
+        String query = "CALL takeItem(\"" + item_name + "\", " + player_id + ")";
         
         Statement st = conn.createStatement();
         st.executeQuery(query);
