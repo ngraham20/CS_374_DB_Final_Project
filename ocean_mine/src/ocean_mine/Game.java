@@ -3,15 +3,13 @@
  */
 package ocean_mine;
 
-import java.sql.SQLException;
-
 /**
  *
  * @author ngraham20, sholzer20
  */
 public class Game {
     // create a database connection for this game
-    DBAccess database;
+    Database database;
     Map map;
     
     UserInput ui;
@@ -27,7 +25,7 @@ public class Game {
     Game()
     {
         // initializes the database
-        database = new DBAccess();
+        database = new Database();
         
         // initializes the map system
         map = new Map();

@@ -10,7 +10,7 @@ import java.sql.*;
 public class Map {
     
     ResultSet rs;
-    DBAccess database;
+    Database database;
     
     String map[][][][];
     
@@ -28,7 +28,7 @@ public class Map {
         currentZ = 0;
     }
     
-    public void linkDatabase(DBAccess database)
+    public void linkDatabase(Database database)
     {
         this.database = database;
     }

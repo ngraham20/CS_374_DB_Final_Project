@@ -8,12 +8,12 @@ import java.util.*;
  *
  * @author ngraham20, sholzer20
  */
-public class DBAccess {
+public class Database {
     
     private Connection conn;
     private ResultSet rs;
     
-    DBAccess()
+    Database()
     {
         
     }

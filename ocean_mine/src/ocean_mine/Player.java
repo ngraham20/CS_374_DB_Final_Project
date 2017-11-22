@@ -14,7 +14,7 @@ public class Player implements Entity {
     private int inventory_id;
     private int description_id;
     
-    private DBAccess database;
+    private Database database;
     private final Map map;
     private final Inventory inventory;
     private Response response;
@@ -34,7 +34,7 @@ public class Player implements Entity {
         response = Response.QUIT; // default is quit
     }
     
-    public void linkDatabase(DBAccess database)
+    public void linkDatabase(Database database)
     {
         this.database = database;
         map.linkDatabase(database);
