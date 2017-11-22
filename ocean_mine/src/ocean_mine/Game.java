@@ -22,6 +22,8 @@ public class Game {
     Achievement dropTheBass;
     Achievement whereAmI;
     
+    Response response;
+    
     Game()
     {
         // initializes the database
@@ -34,6 +36,8 @@ public class Game {
         ui = new UserInput();
         
         player = new Player();
+        
+        response = Response.CONTINUE;
         
         player.linkDatabase(database);
         
@@ -69,10 +73,11 @@ public class Game {
             // presumably, by this point in the code, a correct response has been reached
             switch (ui.getInput().toLowerCase())
             {
-                case "play": play();
+                case "play": play(); response = Response.CONTINUE;
                 break;
                 case "help":
-                    break;
+                break;
+                case "quit": response = Response.QUIT;
             }
     }
     public void start()
@@ -80,8 +85,11 @@ public class Game {
         // on begining the game, connect to the database
         database.connect();
         
+        do
+        {
         // go to main menu
-        mainMenu();
+            mainMenu();
+        } while (response == Response.CONTINUE);
     }
     
     private void play()

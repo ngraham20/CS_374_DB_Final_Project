@@ -138,7 +138,7 @@ public class Player implements Entity {
             break;
             case "talk": performSATalk(); // TODO talk
             break;
-            case "take": performSATake(); // TODO take
+            case "take": performSATake();
             break;
             case "give": performSAGive(); // TODO give
             break;
