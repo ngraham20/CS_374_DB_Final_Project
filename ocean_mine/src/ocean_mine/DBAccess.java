@@ -34,7 +34,7 @@ public class DBAccess {
         conn = DriverManager.getConnection(
                   "jdbc:mariadb:" // jdbc driver
                 + "//25.12.183.131:3306" // ip address of the database
-                + "/ocean_mining_facility", // specific schema
+                + "/ocean_mine", // specific schema
                 username, // username
                 password); // password
             System.out.println("Server Connection Sucessful.");

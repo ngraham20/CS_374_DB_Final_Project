@@ -222,7 +222,7 @@ public class Player implements Entity {
             {
                 for (int i = 0; i <= index; i++)
                 {
-                    if (input.toLowerCase().equals(validInputs[i]))
+                    if (input.toLowerCase().equals(validInputs[i].toLowerCase()))
                     {
                         database.takeItem(input, id);
                         return true;
