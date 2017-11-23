@@ -28,6 +28,7 @@ public class Player implements Entity {
     
     Player()
     {
+        id = 0;
         map = new Map();
         inventory = new Inventory();
         ui = new UserInput();
@@ -121,8 +122,8 @@ public class Player implements Entity {
         String expectedValues[] = {"Walk", "Talk", "Take", "Give", "Use", "Push", "Look", "Read", "Map", "Quit"};
         ui.setExpectedValues(expectedValues);
         
-        System.out.print("||Walk||Talk||Take||Give||Use||\n"
-                        +"||Push||Look||Read||Map||Quit||\n");
+        System.out.print("||Walk||Talk||Take||\n||Give||Use "
+                        +"||Push||\n||Look||Read||Map ||\n      ||Quit||\n");
         //System.out.print("||\n");
         
         // this should loop until a valid response is found

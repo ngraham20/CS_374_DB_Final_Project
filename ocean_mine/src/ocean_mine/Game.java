@@ -14,6 +14,7 @@ public class Game {
     
     UserInput ui;
     Player player;
+    Room room;
     
     Achievement helpMe;
     Achievement takingInventory;
@@ -27,20 +28,21 @@ public class Game {
         // initializes the database
         database = new Database();
         
-        // initializes the map system
-        map = new Map();
-        
         // initializes the user input
         ui = new UserInput();
         
+        room = new Room();
+        room.linkDatabase(database);
+        
         player = new Player();
-        
-        response = Response.CONTINUE;
-        
         player.linkDatabase(database);
         
-        // links the map system to the system database
+        // initializes the map system
+        map = new Map();
         map.linkDatabase(database);
+        
+        
+        response = Response.CONTINUE;
         
         helpMe = new Achievement("Help Me");
         takingInventory = new Achievement("Taking Inventory");
@@ -95,7 +97,7 @@ public class Game {
         do
         {
             // describe room
-            System.out.println("You are in a room, with things in it");
+            room.describeCurrentRoom(player.getID());
             
             // prompt the player for action
             player.performPrimaryAction();

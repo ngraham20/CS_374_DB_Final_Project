@@ -115,8 +115,16 @@ public class Database {
         rs = st.executeQuery(query);
     }
     
-    public void getRoomDescription()
+    public void getPlayerRoomID(int player_id)
     {
         
+    }
+    
+    public void queryCurrentRoomDescription(int player_id) throws SQLException
+    {
+        String query = "CALL getCurrentRoomDescription(" + player_id + ")";
+        
+        Statement st = conn.createStatement();
+        rs = st.executeQuery(query);
     }
 }
