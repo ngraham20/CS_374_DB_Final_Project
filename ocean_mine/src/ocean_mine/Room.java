@@ -6,6 +6,8 @@ package ocean_mine;
  */
 public class Room {
     
+    Database database;
+    
     Room()
     {
         
@@ -13,11 +15,13 @@ public class Room {
     
     public void linkDatabase(Database database)
     {
-        
+        this.database = database;
     }
     
     public void describeRoom()
     {
-        
+       // get room description and print it
+       // print the other describable features of the room
+       // (NPCs, Items, DREs)
     }
 }

@@ -114,4 +114,9 @@ public class Database {
         Statement st = conn.createStatement();
         rs = st.executeQuery(query);
     }
+    
+    public void getRoomDescription()
+    {
+        
+    }
 }
