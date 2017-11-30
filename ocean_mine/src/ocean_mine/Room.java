@@ -30,21 +30,27 @@ public class Room {
             
             String description;
             String entity;
-            
+                
             rs.first();
             
             description = rs.getString("room");
-            System.out.print(description);
-            System.out.print("\n");
-            
-            entity = rs.getString("entity");
-            System.out.println(entity);
+                System.out.print(description);
+                System.out.print("\n");
+                
+                entity = rs.getString("entity");
+                if (entity != null)
+                    System.out.println(entity);
                 
             while (rs.next())
             {
-                System.out.println("\n");
+//                description = rs.getString("room");
+//                System.out.print(description);
+//                System.out.print("\n");
+                
+                System.out.print("\n");
                 entity = rs.getString("entity");
-                System.out.println(entity);
+                if (entity != null)
+                    System.out.println(entity);
             }
             
             System.out.println();
