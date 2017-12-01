@@ -91,9 +91,51 @@ public class Database {
         st.executeQuery(query);
     }
     
+    public void checkRooms(int roomId) throws SQLException
+    {
+        String query = "CALL checkRooms(" + roomId + ");";
+        
+        Statement st = conn.createStatement();
+        rs = st.executeQuery(query);
+    }
+    
+    
+    
     public void resetRooms() throws SQLException
     {
         String query = "CALL resetRooms();";
+        
+        Statement st = conn.createStatement();
+        st.executeQuery(query);
+    }
+    
+    public void movePlayerNorth() throws SQLException
+    {
+        String query = "CALL movePlayerNorth();";
+        
+        Statement st = conn.createStatement();
+        st.executeQuery(query);
+    }
+    
+    public void movePlayerSouth() throws SQLException
+    {
+        String query = "CALL movePlayerSouth();";
+        
+        Statement st = conn.createStatement();
+        st.executeQuery(query);
+    }
+    
+    public void movePlayerEast() throws SQLException
+    {
+        String query = "CALL movePlayerEast();";
+        
+        Statement st = conn.createStatement();
+        st.executeQuery(query);
+    }
+    
+    public void movePlayerWest() throws SQLException
+    {
+        String query = "CALL movePlayerWest();";
         
         Statement st = conn.createStatement();
         st.executeQuery(query);
@@ -115,9 +157,12 @@ public class Database {
         rs = st.executeQuery(query);
     }
     
-    public void getPlayerRoomID(int player_id)
+    public void getPlayerRoomID(int player_id) throws SQLException
     {
+        String query = "Call playerLocation(" + player_id + ")";
         
+        Statement st = conn.createStatement();
+        rs = st.executeQuery(query);
     }
     
     public void queryCurrentRoomDescription(int player_id) throws SQLException

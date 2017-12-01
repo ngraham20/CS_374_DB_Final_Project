@@ -52,6 +52,9 @@ public class Game {
     }
     public void mainMenu()
     {
+        // Might move this; awkward to set because database needs to be connected and that only happens in Game class after all initializations
+        player.setRoomID(player.getID());
+        
         // run the main menu
             System.out.println("--------------------------------------------------------------");
             System.out.println("                   Ocean Mining Facility                      ");

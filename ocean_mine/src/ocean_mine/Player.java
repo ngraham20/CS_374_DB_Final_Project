@@ -74,9 +74,25 @@ public class Player implements Entity {
         return id;
     }
     
-    private void setRoomID()
+    public void setRoomID(int id)
     {
-        // TODO implement
+        ResultSet rs;
+        try
+        {
+            // query for the rooms connected to the current room
+            database.getPlayerRoomID(id);
+            rs = database.getQueryResults();
+            
+            if (rs.next())
+            {
+                room_id = rs.getInt("room_id");
+            }
+        }
+        
+        catch (SQLException e)
+        {
+            System.out.println(e);
+        }
     }
     public int getRoomID()
     {
@@ -162,7 +178,106 @@ public class Player implements Entity {
     
     private boolean performSAWalk()
     {
-        System.out.println("Walking");
+        System.out.println("Which direction would you like to walk?");
+        ResultSet rs;
+        try
+        {
+            // query for the rooms connected to the current room
+            database.checkRooms(room_id);
+            rs = database.getQueryResults();
+            
+            if (rs.next())
+            {
+            // print and store query results
+            boolean n = rs.getBoolean("north");
+            boolean s = rs.getBoolean("south");
+            boolean e = rs.getBoolean("east");
+            boolean w = rs.getBoolean("west");
+            //Size needed for final array
+            int count = 0;
+            
+            // Loading string values for each room that exists into temporary array
+            String rooms[] = new String[4];
+            if (n)
+            {
+                rooms[0] = "North";
+                count++;
+            }
+            if (s)
+            {
+                rooms[1] = "South";
+                count++;
+            }
+            if (e)
+            {
+                rooms[2] = "East";
+                count++;
+            }
+            if (w)
+            {
+                rooms[3] = "West";
+                count++;
+            }
+            
+            // Make a valid input array with only non-null values to permanent array
+            int index = 0;
+            String validInputs[] = new String[count + 1];
+            for (String room : rooms) {
+                if (room != null) {
+                    // Just to be sure we don't get an out of bounds error
+                    if (index < validInputs.length) {
+                        System.out.print("||" + room);
+                        validInputs[index] = room;
+                        index++;
+                    }
+                }
+            }
+            
+            validInputs[index] = "cancel";
+            System.out.print("|| <Cancel> ||\n");
+            
+            // get user input
+            ui.setExpectedValues(validInputs);
+            do
+            {
+                ui.promptUser();
+                
+            } while (ui.getResponse() == Response.INVALID);
+            
+            String input = ui.getInput();
+            
+            // assuming now that the input is valid, performs appropriate action
+            if (input.toLowerCase().equals("cancel"))
+                return false;
+            else
+            {
+                switch (input.toLowerCase()) {
+                    case "north":
+                        database.movePlayerNorth();
+                        setRoomID(id);
+                        break;
+                    case "south":
+                        database.movePlayerSouth();
+                        setRoomID(id);
+                        break;
+                    case "east":
+                        database.movePlayerEast();
+                        setRoomID(id);
+                        break;
+                    case "west":
+                        database.movePlayerWest();
+                        setRoomID(id);
+                        break;
+                    default:
+                        break;
+                    }
+                }  
+            }
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e);
+        }
         return false;
     }
     
@@ -184,7 +299,7 @@ public class Player implements Entity {
             
             // print and store query results
             String item_name;
-            String items[] = new String[10];
+            String items[] = new String[25];
             String validInputs[];
             int index = 0;
             while (rs.next())
@@ -209,7 +324,6 @@ public class Player implements Entity {
             ui.setExpectedValues(validInputs);
             do
             {
-                
                 ui.promptUser();
                 
             } while (ui.getResponse() == Response.INVALID);
@@ -230,9 +344,8 @@ public class Player implements Entity {
                     }
                 }
             }
-            
-            
         }
+        
         catch (SQLException e)
         {
             System.out.println(e);
