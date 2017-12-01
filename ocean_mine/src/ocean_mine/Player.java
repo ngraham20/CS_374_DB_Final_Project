@@ -167,7 +167,7 @@ public class Player implements Entity {
             break;
             case "read": performSARead(); // TODO read
             break;
-            case "map": readMap(); // TODO maybe change this to be read using the READ command Read->Map
+            case "map": readMap();// TODO maybe change this to be read using the READ command Read->Map
             break;
             case "quit": response = Response.QUIT;
             return true;
@@ -254,23 +254,21 @@ public class Player implements Entity {
                 switch (input.toLowerCase()) {
                     case "north":
                         database.movePlayerNorth();
-                        setRoomID(id);
                         break;
                     case "south":
-                        database.movePlayerSouth();
-                        setRoomID(id);
+                        database.movePlayerSouth();setRoomID(id);
                         break;
                     case "east":
-                        database.movePlayerEast();
-                        setRoomID(id);
+                        database.movePlayerEast();setRoomID(id);
                         break;
                     case "west":
-                        database.movePlayerWest();
-                        setRoomID(id);
+                        database.movePlayerWest();setRoomID(id);
                         break;
                     default:
                         break;
                     }
+                // Makes sure the Player object is current
+                setRoomID(id);
                 }  
             }
         }
@@ -399,6 +397,12 @@ public class Player implements Entity {
         }
         
         map.print(1);
+        
+        System.out.println("Type 'Close' to return to game.");
+        String validResponses[]= new String[] {"Close"};
+        
+        ui.setExpectedValues(validResponses);
+        ui.promptUser();
         
         return true;
     }

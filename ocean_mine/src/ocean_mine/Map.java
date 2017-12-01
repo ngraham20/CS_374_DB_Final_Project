@@ -36,6 +36,12 @@ public class Map {
     // will rebuild the entire map array from scratch
     public void update() throws SQLException
     {
+        
+         currentX = 0;
+         currentY = 0;
+         currentZ = 0;
+        
+        
         // send query to database to ask for a list of all discovered rooms
         database.queryMapData();
         
