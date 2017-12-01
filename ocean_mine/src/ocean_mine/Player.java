@@ -28,7 +28,7 @@ public class Player implements Entity {
     
     Player()
     {
-        id = 0;
+        id = 1;
         map = new Map();
         inventory = new Inventory();
         ui = new UserInput();
@@ -253,16 +253,16 @@ public class Player implements Entity {
             {
                 switch (input.toLowerCase()) {
                     case "north":
-                        database.movePlayerNorth();
+                        database.movePlayerNorth(id);
                         break;
                     case "south":
-                        database.movePlayerSouth();setRoomID(id);
+                        database.movePlayerSouth(id);
                         break;
                     case "east":
-                        database.movePlayerEast();setRoomID(id);
+                        database.movePlayerEast(id);
                         break;
                     case "west":
-                        database.movePlayerWest();setRoomID(id);
+                        database.movePlayerWest(id);
                         break;
                     default:
                         break;

@@ -109,33 +109,33 @@ public class Database {
         st.executeQuery(query);
     }
     
-    public void movePlayerNorth() throws SQLException
+    public void movePlayerNorth(int id) throws SQLException
     {
-        String query = "CALL movePlayerNorth();";
+        String query = "CALL movePlayerNorth(" + id + ");";
         
         Statement st = conn.createStatement();
         st.executeQuery(query);
     }
     
-    public void movePlayerSouth() throws SQLException
+    public void movePlayerSouth(int id) throws SQLException
     {
-        String query = "CALL movePlayerSouth();";
+        String query = "CALL movePlayerSouth(" + id + ");";
         
         Statement st = conn.createStatement();
         st.executeQuery(query);
     }
     
-    public void movePlayerEast() throws SQLException
+    public void movePlayerEast(int id) throws SQLException
     {
-        String query = "CALL movePlayerEast();";
+        String query = "CALL movePlayerEast(" + id + ");";
         
         Statement st = conn.createStatement();
         st.executeQuery(query);
     }
     
-    public void movePlayerWest() throws SQLException
+    public void movePlayerWest(int id) throws SQLException
     {
-        String query = "CALL movePlayerWest();";
+        String query = "CALL movePlayerWest(" + id + ");";
         
         Statement st = conn.createStatement();
         st.executeQuery(query);

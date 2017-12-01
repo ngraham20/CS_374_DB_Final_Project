@@ -49,7 +49,9 @@ public class Map {
         // redraw map listings to account for the new information
         rs = database.getQueryResults();
         
-        int id;
+        while (rs.next())
+        {
+            int id;
         int z;
         int y;
         int x;
@@ -59,14 +61,15 @@ public class Map {
         boolean e;
         boolean w;
         
-        while (rs.next())
-        {
+        boolean player;
+        
             id = rs.getInt("id");
             discovered = rs.getInt("discovered");
             n = rs.getBoolean("north");
             s = rs.getBoolean("south");
             e = rs.getBoolean("east");
             w = rs.getBoolean("west");
+            player = rs.getBoolean("player");
             
             if (id > 0) // if there's at least one digit
             {
@@ -100,10 +103,18 @@ public class Map {
                     map[z][y][x][0] = "-----";
                 if (w)
                 {
-                    map[z][y][x][1] = "-   ";
+                    map[z][y][x][1] = "-";
                 }
                 else
-                    map[z][y][x][1] = "|   ";
+                {
+                    map[z][y][x][1] = "|";
+                }
+                if(player)
+                {
+                    map[z][y][x][1] += "<o>";
+                }
+                else
+                    map[z][y][x][1] += "   ";
                 if (e)
                 {
                     map[z][y][x][1] += "-";
