@@ -157,6 +157,14 @@ public class Database {
         rs = st.executeQuery(query);
     }
     
+    public void getPlayerInventory(int player_id) throws SQLException
+    {
+        String query = "CALL getPlayerInventory(" + player_id + ")";
+        
+        Statement st = conn.createStatement();
+        rs = st.executeQuery(query);
+    }
+    
     public void getPlayerRoomID(int player_id) throws SQLException
     {
         String query = "Call playerLocation(" + player_id + ")";

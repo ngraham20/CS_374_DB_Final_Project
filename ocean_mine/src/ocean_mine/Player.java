@@ -300,20 +300,26 @@ public class Player implements Entity {
             String items[] = new String[25];
             String validInputs[];
             int index = 0;
+            
             while (rs.next())
             {
-                System.out.print("||");
                 item_name = rs.getString("name");
-                items[index] = item_name;
-                System.out.print(item_name);
-                index++;
+                String item_type = rs.getString("type");
+                
+                if (item_type != null && item_type.equals("ITEM"))
+                {
+                    System.out.print("||");
+                    items[index] = item_name;
+                    System.out.print(item_name);
+                    index++;
+                }
             }
             items[index] = "cancel";
             
-            // initializes the size of validInputs based on the number of items
+            // initializes the size of validInputs based on the number of item_names
             validInputs = new String[index+1];
             
-            // now load validInputs with all the real values of items
+            // now load validInputs with all the real values of item_names
             System.arraycopy(items, 0, validInputs, 0, index+1);
             
             System.out.print("|| <Cancel> ||\n");
@@ -359,8 +365,94 @@ public class Player implements Entity {
     }
     
     private boolean performSAUse()
-    {
-        System.out.println("Using");
+    {        
+        // query the database for the player's inventory
+        ResultSet rs;
+        try
+        {
+            database.getPlayerInventory(id);
+            rs = database.getQueryResults();
+
+            String[] item_names = new String[25];
+            String[] item_uses = new String[25];
+            String validInputs[];
+            String validUses[];
+            int index = 0;
+            while (rs.next())
+            {
+                String item_name = rs.getString("name");
+                String item_use = rs.getString("use");
+
+                if (item_name != null && item_use != null)
+                {
+                    item_names[index] = item_name;
+                    item_uses[index] = item_use;
+                    index++;
+                    System.out.print("||" + item_name);
+                }
+            }
+
+            item_names[index] = "cancel";
+            item_uses[index] = "CANCEL";
+
+            // initializes the size of validInputs based on the number of item_names
+            validInputs = new String[index+1];
+            validUses = new String[index+1];
+
+            // now load validInputs with all the real values of item_names
+            System.arraycopy(item_names, 0, validInputs, 0, index+1);
+            System.arraycopy(item_uses, 0, validUses, 0, index+1);
+
+            System.out.print("|| <Cancel> ||\n");
+            
+            ui.setExpectedValues(validInputs);
+            
+            do
+            {
+            // check the item's usage to decide which path to take for usage
+            ui.promptUser();
+            
+            } while (ui.getResponse() == Response.INVALID);
+
+            // at this point, response should be a valid one
+            String input = ui.getInput().toLowerCase();
+            
+            // loop through all valid inputs
+            for (int i = 0; i < validInputs.length; i++)
+            {
+                if (input.equals(validInputs[i].toLowerCase()))
+                {
+                    switch (validUses[i])
+                    {
+                        case "UNLOCK": // TODO unlock door
+                            break;
+                        case "COMBINE": // TODO comine with other item
+                            break;
+                        case "EAT": // TODO consume item
+                            break;
+                        case "CUDDLE": System.out.println("You cuddle the " + validInputs[i] + ". It is very soft.\n");
+                            break;
+                        case "BREAK": // TODO break something
+                            break;
+                        case "CANCEL": 
+                            break;
+                    }
+                }
+            }
+
+            // to do later
+            //-------------------------------------------------------
+            // if combine
+                // list other item_names in the player's inventory
+                // prompt the user to choose an ITEM or cancel
+            //--------------------------------------------------------
+            
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e);
+        }
+        
         return false;
     }
     
