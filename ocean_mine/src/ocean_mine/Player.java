@@ -431,15 +431,15 @@ public class Player implements Entity {
                 {
                     switch (validUses[i])
                     {
-                        case "UNLOCK": // TODO unlock door
+                        case "UNLOCK": unlockDoor();
                             break;
-                        case "COMBINE": // TODO comine with other item
+                        case "COMBINE": System.out.println("[System]: Currently an unsupported action.\n");
                             break;
-                        case "EAT": // TODO consume item
+                        case "EAT": System.out.println("[System]: Currently an unsupported action.\n");
                             break;
                         case "CUDDLE": System.out.println("You cuddle the " + validInputs[i] + ". It is very soft.\n");
                             break;
-                        case "BREAK": // TODO break something
+                        case "BREAK": System.out.println("[System]: Currently an unsupported action.\n");
                             break;
                         case "CANCEL": 
                             break;
@@ -461,6 +461,15 @@ public class Player implements Entity {
         }
         
         return false;
+    }
+    
+    private void unlockDoor()
+    {
+        // retrieve all doors in the room
+        // print them for the user
+        // load them into valid responses
+        // prompt user for valid response
+        // remove the chosen door from the room's inventory
     }
     
     private boolean performSAPush()
