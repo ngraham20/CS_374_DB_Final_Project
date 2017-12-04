@@ -20,6 +20,8 @@ public class Player implements Entity {
     private Response response;
     private final UserInput ui;
     
+    private Room room;
+    
     
     public enum Direction
     {
@@ -33,12 +35,14 @@ public class Player implements Entity {
         inventory = new Inventory();
         ui = new UserInput();
         response = Response.QUIT; // default is quit
+        room = new Room();
     }
     
     public void linkDatabase(Database database)
     {
         this.database = database;
         map.linkDatabase(database);
+        room.linkDatabase(database);
     }
     
     private void setDescriptionID()
@@ -276,6 +280,9 @@ public class Player implements Entity {
         {
             System.out.println(e);
         }
+        
+        room.describeCurrentRoom(id);
+        
         return false;
     }
     

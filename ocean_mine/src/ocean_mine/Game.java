@@ -95,10 +95,14 @@ public class Game {
     private void play()
     {
         player.setRoomID(player.getID());
+        
+        // describe room once, before player decision making
+            room.describeCurrentRoom(player.getID());
+            
         do
         {
-            // describe room
-            room.describeCurrentRoom(player.getID());
+            
+            // describe room has been moved to the end of the walk function to activate after moving to a new room
             
             // prompt the player for action
             player.performPrimaryAction();
