@@ -180,4 +180,12 @@ public class Database {
         Statement st = conn.createStatement();
         rs = st.executeQuery(query);
     }
+    
+    public void unlockDoor(String door, int player_id) throws SQLException
+    {
+        String query = "CALL unlockDoor(\"" + door + "\", " + player_id + ")";
+        
+        Statement st = conn.createStatement();
+        rs = st.executeQuery(query);
+    }
 }

@@ -374,9 +374,9 @@ public class Player implements Entity {
     private boolean performSAUse()
     {        
         // query the database for the player's inventory
-        ResultSet rs;
         try
         {
+            ResultSet rs;
             database.getPlayerInventory(id);
             rs = database.getQueryResults();
 
@@ -431,8 +431,10 @@ public class Player implements Entity {
                 {
                     switch (validUses[i])
                     {
-                        case "UNLOCK": unlockDoor();
-                            break;
+                        case "UNLOCK": 
+                            {   unlockDoor();
+                                break;
+                            }
                         case "COMBINE": System.out.println("[System]: Currently an unsupported action.\n");
                             break;
                         case "EAT": System.out.println("[System]: Currently an unsupported action.\n");
@@ -466,10 +468,63 @@ public class Player implements Entity {
     private void unlockDoor()
     {
         // retrieve all doors in the room
-        // print them for the user
-        // load them into valid responses
-        // prompt user for valid response
-        // remove the chosen door from the room's inventory
+        try
+        {
+            ResultSet rs;
+            database.getRoomInventory(id);
+            rs = database.getQueryResults();
+            
+            String[] item_names = new String[25];
+            String validInputs[];
+            int index = 0;
+            
+            while(rs.next())
+            {
+                String name = rs.getString("name");
+                String type = rs.getString("type");
+                
+                if(type != null && type.equals("DOOR"))
+                {
+                    item_names[index] = name;
+                    System.out.print("||" + name);
+                    index++;
+                }
+            }
+            
+            // add cancel to the possible choices
+            item_names[index] = "cancel";
+            
+            
+            // initializes the size of validInputs based on the number of item_names
+            validInputs = new String[index+1];
+
+            // now load validInputs with all the real values of item_names
+            System.arraycopy(item_names, 0, validInputs, 0, index+1);
+
+            System.out.print("|| <Cancel> ||\n");
+            
+            ui.setExpectedValues(validInputs);
+            
+            // prompt user for valid response
+            do
+            {
+                ui.promptUser();
+                
+            } while (ui.getResponse() == Response.INVALID);
+            
+            // here, the response should be valid
+            
+            String input = ui.getInput().toLowerCase();
+            
+            // remove the chosen door from the room's inventory
+            database.unlockDoor(input, id);
+            
+            System.out.println("*CLICK*");
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e);
+        }
     }
     
     private boolean performSAPush()
