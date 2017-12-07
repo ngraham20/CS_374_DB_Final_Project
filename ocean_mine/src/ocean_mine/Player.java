@@ -22,6 +22,8 @@ public class Player implements Entity {
     
     private final Room room;
     
+    private int damageCountdown;
+    private int sicknessCountdown;
     
     public enum Direction
     {
@@ -36,6 +38,9 @@ public class Player implements Entity {
         ui = new UserInput();
         response = Response.QUIT; // default is quit
         room = new Room();
+        
+        damageCountdown = 0;
+        sicknessCountdown = 0;
     }
     
     public void linkDatabase(Database database)
@@ -139,6 +144,15 @@ public class Player implements Entity {
     
     public boolean performPrimaryAction()
     {
+        if (sicknessCountdown > 0)
+        {
+            sicknessCountdown--;
+            if (sicknessCountdown == 0)
+            {
+                System.out.println("The banana, which you had eaten only minutes before, causes you to keel over.\n"
+                        + "Your face pales, and you begin to turn green. You groan before throwing up on the floor.");
+            }
+        }
         String expectedValues[] = {"Walk", "Talk", "Take", "Give", "Use", "Push", "Look", "Read", "Map", "Quit"};
         ui.setExpectedValues(expectedValues);
         
@@ -471,7 +485,8 @@ public class Player implements Entity {
     {
         if (item_name.equals("banana"))
         {
-            System.out.println("Why the hell would you eat that?!");
+            System.out.println("You eat the banana... It leaves your stomach highly unsettled...");
+            sicknessCountdown = 4;
         }
     }
     
