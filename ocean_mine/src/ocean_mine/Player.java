@@ -9,7 +9,7 @@ import java.sql.*;
 public class Player implements Entity {
     
     // these variables allow fluid interaction with the DBMS
-    private int id;
+    private final int id;
     private int room_id;
     private int inventory_id;
     private int description_id;
@@ -20,7 +20,7 @@ public class Player implements Entity {
     private Response response;
     private final UserInput ui;
     
-    private Room room;
+    private final Room room;
     
     
     public enum Direction
@@ -226,12 +226,12 @@ public class Player implements Entity {
             // Make a valid input array with only non-null values to permanent array
             int index = 0;
             String validInputs[] = new String[count + 1];
-            for (String room : rooms) {
-                if (room != null) {
+            for (String tempRoom : rooms) {
+                if (tempRoom != null) {
                     // Just to be sure we don't get an out of bounds error
                     if (index < validInputs.length) {
-                        System.out.print("||" + room);
-                        validInputs[index] = room;
+                        System.out.print("||" + tempRoom);
+                        validInputs[index] = tempRoom;
                         index++;
                     }
                 }

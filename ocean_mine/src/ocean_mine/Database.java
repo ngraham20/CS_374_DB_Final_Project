@@ -83,9 +83,17 @@ public class Database {
     }
     
 
-    public void discoverRoom(int roomId) throws SQLException
+    public void discoverRoom(int player_id) throws SQLException
     {
-        String query = "CALL discoverRoom(" + roomId + ");";
+        String query = "CALL discoverRoom(" + player_id + ");";
+        
+        Statement st = conn.createStatement();
+        st.executeQuery(query);
+    }
+    
+    public void gameSetup(int player_id) throws SQLException
+    {
+        String query = "CALL gameSetup(" + player_id + ");";
         
         Statement st = conn.createStatement();
         st.executeQuery(query);
