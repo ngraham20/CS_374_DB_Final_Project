@@ -439,7 +439,7 @@ public class Player implements Entity {
                             }
                         case "COMBINE": System.out.println("[System]: Currently an unsupported action.\n");
                             break;
-                        case "EAT": System.out.println("[System]: Currently an unsupported action.\n");
+                        case "EAT": eat(input);
                             break;
                         case "CUDDLE": System.out.println("You cuddle the " + validInputs[i] + ". It is very soft.\n");
                             break;
@@ -465,6 +465,14 @@ public class Player implements Entity {
         }
         
         return false;
+    }
+    
+    private void eat(String item_name)
+    {
+        if (item_name.equals("banana"))
+        {
+            System.out.println("Why the hell would you eat that?!");
+        }
     }
     
     private void unlockDoor()
@@ -521,7 +529,10 @@ public class Player implements Entity {
             // remove the chosen door from the room's inventory
             database.unlockDoor(input, id);
             
-            System.out.println("*CLICK*");
+            if(!input.equals("cancel"))
+            {
+                System.out.println("*CLICK*");
+            }
         }
         catch (SQLException e)
         {
