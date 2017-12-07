@@ -273,6 +273,8 @@ public class Player implements Entity {
                     }
                 // Makes sure the Player object is current
                 setRoomID(id);
+                database.discoverRoom(id);
+                
                 }  
             }
         }

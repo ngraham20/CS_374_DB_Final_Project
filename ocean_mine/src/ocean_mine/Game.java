@@ -3,6 +3,8 @@
  */
 package ocean_mine;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author ngraham20, sholzer20
@@ -95,6 +97,14 @@ public class Game {
     private void play()
     {
         player.setRoomID(player.getID());
+        try
+        {
+            database.gameSetup(player.getID());
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e);
+        }
         
         // describe room once, before player decision making
             room.describeCurrentRoom(player.getID());
