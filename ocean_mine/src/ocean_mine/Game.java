@@ -96,7 +96,7 @@ public class Game {
     
     private void play()
     {
-        player.setRoomID(player.getID());
+        // Initializes the database files to default i.e. the beginning of the game
         try
         {
             database.gameSetup(player.getID());
@@ -105,6 +105,9 @@ public class Game {
         {
             System.out.println(e);
         }
+        
+        // Makes sure that the player is in the right room at the beginning of the game
+        player.setRoomID(player.getID());
         
         // describe room once, before player decision making
             room.describeCurrentRoom(player.getID());

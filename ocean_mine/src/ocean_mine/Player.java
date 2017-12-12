@@ -194,10 +194,63 @@ public class Player implements Entity {
         return true; 
     }
     
+    // The first SQL statement will find all locked doors and set boolean values to determine if the door is locked
+    // The second SQL statement determines which direction the user wants to walk and then moves their position
     private boolean performSAWalk()
     {
-        System.out.println("Which direction would you like to walk?");
+        boolean northLocked = false;
+        boolean southLocked = false;
+        boolean eastLocked = false;
+        boolean westLocked = false;
+        
         ResultSet rs;
+        // First SQL statement
+        try
+        {
+            // query for the room's inventory for item names
+            database.getRoomInventory(id);
+            rs = database.getQueryResults();
+            
+            // Only need to worry about knowing the item name and type
+            String item_name;
+            String item_type;
+            
+            while (rs.next())
+            {
+                item_name = rs.getString("name");
+                item_type = rs.getString("type");
+                
+                // Make sure each entity in the inventory is a locked door
+                if (item_type != null && item_type.equals("DOOR"))
+                {
+                    // As long as the item is a door, then its name matches the blocked direction
+                    switch (item_name) {
+                        case "North":
+                            northLocked = true;
+                            break;
+                        case "South":
+                            southLocked = true;
+                            break;
+                        case "East":
+                            eastLocked = true;
+                            break;
+                        case "West":
+                            westLocked = true;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }  
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e);
+        }
+        
+        
+        // Second SQL statement
+        System.out.println("Which direction would you like to walk?");
         try
         {
             // query for the rooms connected to the current room
@@ -211,7 +264,7 @@ public class Player implements Entity {
             boolean s = rs.getBoolean("south");
             boolean e = rs.getBoolean("east");
             boolean w = rs.getBoolean("west");
-            //Size needed for final array
+            // Size needed for final array
             int count = 0;
             
             // Loading string values for each room that exists into temporary array
@@ -269,17 +322,38 @@ public class Player implements Entity {
                 return false;
             else
             {
+                // Each direction will first check that the door isn't locked
                 switch (input.toLowerCase()) {
                     case "north":
+                        if (northLocked)
+                        {
+                            System.out.println("No matter how hard you try, the door won't budge. Try finding a key!");
+                            break;
+                        }
                         database.movePlayerNorth(id);
                         break;
                     case "south":
+                        if (southLocked)
+                        {
+                            System.out.println("No matter how hard you try, the door won't budge. Try finding a key!");
+                            break;
+                        }
                         database.movePlayerSouth(id);
                         break;
                     case "east":
+                        if (eastLocked)
+                        {
+                            System.out.println("No matter how hard you try, the door won't budge. Try finding a key!");
+                            break;
+                        }
                         database.movePlayerEast(id);
                         break;
                     case "west":
+                        if (westLocked)
+                        {
+                            System.out.println("No matter how hard you try, the door won't budge. Try finding a key!");
+                            break;
+                        }
                         database.movePlayerWest(id);
                         break;
                     default:
@@ -544,6 +618,7 @@ public class Player implements Entity {
             // remove the chosen door from the room's inventory
             database.unlockDoor(input, id);
             
+            // informs user that the door was unlocked
             if(!input.equals("cancel"))
             {
                 System.out.println("*CLICK*");
