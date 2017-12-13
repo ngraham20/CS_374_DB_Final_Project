@@ -107,41 +107,7 @@ public class Player implements Entity {
     {
         return room_id;
     }
-    
-//    public boolean performAction(Action action)
-//    {
-//        switch (action)
-//        {
-//            case WALK:
-//                {
-//                // prompt user for direction
-//                String direction = "";
-//                switch (direction)
-//                    {
-//                    case "north":
-//                        move(Direction.NORTH);
-//                        return true;
-//                    case "south":
-//                        move(Direction.SOUTH);
-//                        return true;
-//                    case "east":
-//                        move(Direction.EAST);
-//                        return true;
-//                    case "west":
-//                        move(Direction.WEST);
-//                        return true;
-//                    case "up":
-//                        move(Direction.UP);
-//                        return true;
-//                    case "down":
-//                        move(Direction.DOWN);
-//                        return true;
-//                    }
-//                }
-//        }
-//        return false;
-//    }
-    
+        
     public boolean performPrimaryAction()
     {
         if (sicknessCountdown > 0)
@@ -195,10 +161,12 @@ public class Player implements Entity {
         return true; 
     }
     
-    // The first SQL statement will find all locked doors and set boolean values to determine if the door is locked
-    // The second SQL statement determines which direction the user wants to walk and then moves their position
     private boolean performSAWalk()
     {
+        
+        // The first SQL statement will find all locked doors and set boolean values to determine if the door is locked
+    // The second SQL statement determines which direction the user wants to walk and then moves their position
+        
         boolean northLocked = false;
         boolean southLocked = false;
         boolean eastLocked = false;
@@ -830,27 +798,5 @@ public class Player implements Entity {
     public Response getResponse()
     {
         return response;
-    }
-    
-//    public boolean move(Direction direction)
-//    {
-//        
-//        switch (direction)
-//        {
-//            case NORTH:
-//                // sql North
-//                return true;
-//            case SOUTH:
-//                // sql South
-//                return true;
-//            case EAST:
-//                // sql East
-//                return true;
-//            case WEST:
-//                // sql West
-//                return true;
-//        }
-//        return false;
-//    }
-    
+    }    
 }

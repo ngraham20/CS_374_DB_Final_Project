@@ -66,13 +66,6 @@ public class Database {
     {
         return this.rs;
     }
-     
-    // TODO add methods to do specific queries
-    // public void walk(DIRECTION) would be an example, with the SQL
-    // statement specific to walking in a direction inside the method
-    
-    // Another statement could return data in the form of a ResultSet
-    // public ResultSet getInventory() would be an example.
     
     public void queryMapData() throws SQLException
     {
@@ -106,9 +99,7 @@ public class Database {
         Statement st = conn.createStatement();
         rs = st.executeQuery(query);
     }
-    
-    
-    
+        
     public void resetRooms() throws SQLException
     {
         String query = "CALL resetRooms();";
