@@ -25,11 +25,14 @@ public class Achievement {
     }
     public void unlock()
     {
+        if (unlocked == false)
+        {
         this.unlocked = true;
         
         System.out.println("----------------------------------------------------");
         System.out.println("   <<Achievement Unlocked: " + name + ">>   ");
-        System.out.println("----------------------------------------------------");
+        System.out.println("----------------------------------------------------\n");
+        }
     }
     
     public String getDescription()

@@ -190,7 +190,8 @@ public class Player implements Entity {
             case "quit": response = Response.QUIT;
             return true;
         }
-        response = Response.CONTINUE;
+        
+         //response = Response.CONTINUE;
         return true; 
     }
     
@@ -225,16 +226,16 @@ public class Player implements Entity {
                 {
                     // As long as the item is a door, then its name matches the blocked direction
                     switch (item_name) {
-                        case "North":
+                        case "North_Door":
                             northLocked = true;
                             break;
-                        case "South":
+                        case "South_Door":
                             southLocked = true;
                             break;
-                        case "East":
+                        case "East_Door":
                             eastLocked = true;
                             break;
-                        case "West":
+                        case "West_Door":
                             westLocked = true;
                             break;
                         default:
@@ -327,7 +328,7 @@ public class Player implements Entity {
                     case "north":
                         if (northLocked)
                         {
-                            System.out.println("No matter how hard you try, the door won't budge. Try finding a key!");
+                            System.out.println("No matter how hard you try, the door won't budge. Try finding a key!\n");
                             break;
                         }
                         database.movePlayerNorth(id);
@@ -336,7 +337,7 @@ public class Player implements Entity {
                     case "south":
                         if (southLocked)
                         {
-                            System.out.println("No matter how hard you try, the door won't budge. Try finding a key!");
+                            System.out.println("No matter how hard you try, the door won't budge. Try finding a key!\n");
                             break;
                         }
                         database.movePlayerSouth(id);
@@ -345,7 +346,7 @@ public class Player implements Entity {
                     case "east":
                         if (eastLocked)
                         {
-                            System.out.println("No matter how hard you try, the door won't budge. Try finding a key!");
+                            System.out.println("No matter how hard you try, the door won't budge. Try finding a key!\n");
                             break;
                         }
                         database.movePlayerEast(id);
@@ -354,7 +355,7 @@ public class Player implements Entity {
                     case "west":
                         if (westLocked)
                         {
-                            System.out.println("No matter how hard you try, the door won't budge. Try finding a key!");
+                            System.out.println("No matter how hard you try, the door won't budge. Try finding a key!\n");
                             break;
                         }
                         database.movePlayerWest(id);
@@ -374,13 +375,14 @@ public class Player implements Entity {
         {
             System.out.println(e);
         }
-        
+        response = Response.CONTINUE;
         return false;
     }
     
     private boolean performSATalk()
     {
         System.out.println("Talking");
+        response = Response.CONTINUE;
         return false;
     }
     
@@ -453,13 +455,14 @@ public class Player implements Entity {
         {
             System.out.println(e);
         }
-        
+        response = Response.CONTINUE;
         return false;
     }
     
     private boolean performSAGive()
     {
         System.out.println("Giving");
+        response = Response.CONTINUE;
         return false;
     }
     
@@ -528,14 +531,26 @@ public class Player implements Entity {
                                 break;
                             }
                         case "COMBINE": System.out.println("[System]: Currently an unsupported action.\n");
+                                response = Response.CONTINUE;
                             break;
                         case "EAT": eat(input);
                             break;
                         case "CUDDLE": System.out.println("You cuddle the " + validInputs[i] + ". It is very soft.\n");
+                            if (sicknessCountdown > 0)
+                            {
+                                System.out.println("The warmth of the penguin calms your stomach as if you never ate the nasty banana.\n");
+                                sicknessCountdown = 0;
+                            }
+                            response = Response.CONTINUE;
                             break;
-                        case "BREAK": System.out.println("[System]: Currently an unsupported action.\n");
-                            break;
-                        case "CANCEL": 
+                        case "BREAK": 
+                            {
+                                breakInput(input);
+                                break;
+                            }
+                            
+                        case "CANCEL":
+                            response = Response.CONTINUE;
                             break;
                     }
                 }
@@ -553,7 +568,6 @@ public class Player implements Entity {
         {
             System.out.println(e);
         }
-        
         return false;
     }
     
@@ -563,6 +577,18 @@ public class Player implements Entity {
         {
             System.out.println("You eat the banana... It leaves your stomach highly unsettled...");
             sicknessCountdown = 4;
+        }
+        response = Response.CONTINUE;
+    }
+    
+    private void breakInput(String item_name)
+    {
+        if (item_name.equals("big_red_button"))
+        {
+            System.out.println("The moment you push the Big Red Button, your hear a large snapping of the cable above the base."
+                    + "\nThe ground shakes beneath your feet while flashing lights and warning signals blare throughout the facility."
+                    + "\nYou hear a computerized female voice through the intercom: \"WARNING! BASE HAS BEEN DROPPED!\"\n");
+            response = Response.BASEDROP;
         }
     }
     
@@ -630,11 +656,13 @@ public class Player implements Entity {
         {
             System.out.println(e);
         }
+        response = Response.CONTINUE;
     }
     
     private boolean performSAPush()
     {
         System.out.println("Pushing");
+        response = Response.CONTINUE;
         return false;
     }
     
@@ -762,12 +790,14 @@ public class Player implements Entity {
         {
             System.out.println(e);
         }
+        response = Response.CONTINUE;
         return false;
     }
     
     private boolean performSARead()
     {
         System.out.println("Reading");
+        response = Response.CONTINUE;
         return false;
     }
     
@@ -793,6 +823,7 @@ public class Player implements Entity {
         ui.setExpectedValues(validResponses);
         ui.promptUser();
         
+        response = Response.WHEREAMI;
         return true;
     }
     
@@ -801,25 +832,25 @@ public class Player implements Entity {
         return response;
     }
     
-    public boolean move(Direction direction)
-    {
-        
-        switch (direction)
-        {
-            case NORTH:
-                // sql North
-                return true;
-            case SOUTH:
-                // sql South
-                return true;
-            case EAST:
-                // sql East
-                return true;
-            case WEST:
-                // sql West
-                return true;
-        }
-        return false;
-    }
+//    public boolean move(Direction direction)
+//    {
+//        
+//        switch (direction)
+//        {
+//            case NORTH:
+//                // sql North
+//                return true;
+//            case SOUTH:
+//                // sql South
+//                return true;
+//            case EAST:
+//                // sql East
+//                return true;
+//            case WEST:
+//                // sql West
+//                return true;
+//        }
+//        return false;
+//    }
     
 }

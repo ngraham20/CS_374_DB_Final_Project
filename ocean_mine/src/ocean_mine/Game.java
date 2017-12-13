@@ -120,7 +120,15 @@ public class Game {
             // prompt the player for action
             player.performPrimaryAction();
             
-        } while (player.getResponse() == Response.CONTINUE);
+            if (player.getResponse() == Response.BASEDROP)
+                dropTheBass.unlock();
+            if (player.getResponse() == Response.TAKINGINVENTORY)
+                takingInventory.unlock();
+            if (player.getResponse() == Response.WHEREAMI)
+                whereAmI.unlock();
+                
+            
+        } while (player.getResponse() != Response.QUIT);
     }
 
 }
