@@ -331,6 +331,7 @@ public class Player implements Entity {
                             break;
                         }
                         database.movePlayerNorth(id);
+                        room.describeCurrentRoom(id);
                         break;
                     case "south":
                         if (southLocked)
@@ -339,6 +340,7 @@ public class Player implements Entity {
                             break;
                         }
                         database.movePlayerSouth(id);
+                        room.describeCurrentRoom(id);
                         break;
                     case "east":
                         if (eastLocked)
@@ -347,6 +349,7 @@ public class Player implements Entity {
                             break;
                         }
                         database.movePlayerEast(id);
+                        room.describeCurrentRoom(id);
                         break;
                     case "west":
                         if (westLocked)
@@ -355,6 +358,7 @@ public class Player implements Entity {
                             break;
                         }
                         database.movePlayerWest(id);
+                        room.describeCurrentRoom(id);
                         break;
                     default:
                         break;
@@ -370,8 +374,6 @@ public class Player implements Entity {
         {
             System.out.println(e);
         }
-        
-        room.describeCurrentRoom(id);
         
         return false;
     }
@@ -638,7 +640,128 @@ public class Player implements Entity {
     
     private boolean performSALook()
     {
-        System.out.println("Looking");
+        try
+        {
+            ResultSet rs;
+            
+            // start with room things
+            
+            // query for the room's inventory for item names
+            database.getRoomInventory(id);
+            rs = database.getQueryResults();
+            
+            // print and store query results
+            String item_name;
+            String[] roomItems = new String[25];
+            String[] roomItemLooks = new String[25];
+            String validInputs[];
+            String validLooks[];
+            int roomIndex = 0;
+            
+            while (rs.next())
+            {
+                // get name
+                item_name = rs.getString("name");
+                
+                // get look description
+                String item_type = rs.getString("look");
+
+                // push name
+                roomItems[roomIndex] = item_name;
+                
+                // push look description
+                roomItemLooks[roomIndex] = item_type;
+                
+                // print name
+                System.out.print("||"+ item_name);
+                
+                // increment
+                roomIndex++;
+            }
+            // roomItems[roomIndex] = "cancel";
+
+            // switch to player inventory
+            database.getPlayerInventory(id);
+            rs = database.getQueryResults();
+
+            String[] item_names = new String[25];
+            String[] item_looks = new String[25];
+            String validUses[];
+            int index = 0;
+            while (rs.next())
+            {
+                // get item name
+                item_name = rs.getString("name");
+                
+                // push item name
+                item_names[index] = item_name;
+                
+                // get and push look description
+                item_looks[index] = rs.getString("look");
+                
+                // increment
+                index++;
+                System.out.print("||" + item_name);
+            }
+            
+            item_names[index] = "Room";
+            item_looks[index] = "ROOM";
+            
+            index ++;
+            
+             item_names[index] = "cancel";
+            item_looks[index] = "CANCEL";
+            
+             // initializes the size of validInputs based on the number of item_names
+            validInputs = new String[roomIndex + index + 1];
+            validLooks = new String[roomIndex + index + 1];
+            
+
+            // now load validInputs with all the real values of item_names (room inventory)
+            System.arraycopy(roomItems, 0, validInputs, 0, roomIndex);
+            
+            // now load validLooks with the real values
+            System.arraycopy(roomItemLooks, 0, validLooks, 0, roomIndex);
+            
+            // now load validInputs with all the real values of item_names (player inventory)
+            System.arraycopy(item_names, 0, validInputs, roomIndex, index+1);
+            
+            // now load valid Looks with more real values
+            System.arraycopy(item_looks, 0, validLooks, roomIndex, index+1);
+
+            System.out.print("||Room|| <Cancel> ||\n");
+            
+            ui.setExpectedValues(validInputs);
+            
+            // prompt user for valid response
+            do
+            {
+                ui.promptUser();
+                
+            } while (ui.getResponse() == Response.INVALID);
+            
+            // here, the response should be valid
+            
+            String input = ui.getInput().toLowerCase();
+            
+            for (int i = 0; i < validInputs.length; i++)
+            {
+                if (input.equals("room"))
+                {
+                    room.describeCurrentRoom(id);
+                    return true;
+                }
+                if (input.equals(validInputs[i].toLowerCase()))
+                {
+                    System.out.println(validLooks[i]);
+                }
+            }
+            
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e);
+        }
         return false;
     }
     
