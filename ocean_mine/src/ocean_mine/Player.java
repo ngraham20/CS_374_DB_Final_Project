@@ -746,7 +746,7 @@ public class Player implements Entity {
             
             for (int i = 0; i < validInputs.length; i++)
             {
-                if (input.equals("room"))
+                if (input.equals("room") || input.equals("cancel"))
                 {
                     room.describeCurrentRoom(id);
                     return true;
