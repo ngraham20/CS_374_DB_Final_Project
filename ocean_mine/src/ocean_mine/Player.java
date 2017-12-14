@@ -36,7 +36,7 @@ public class Player implements Entity {
         map = new Map();
         inventory = new Inventory();
         ui = new UserInput();
-        response = Response.QUIT; // default is quit
+        response = Response.CONTINUE; // default is quit
         room = new Room();
         
         damageCountdown = 0;
@@ -154,7 +154,8 @@ public class Player implements Entity {
             case "map": readMap();// TODO maybe change this to be read using the READ command Read->Map
             break;
             case "quit": response = Response.QUIT;
-            return true;
+            break;
+            default: response = Response.CONTINUE;
         }
         
          //response = Response.CONTINUE;
@@ -502,6 +503,7 @@ public class Player implements Entity {
                                 response = Response.CONTINUE;
                             break;
                         case "EAT": eat(input);
+                            response = Response.CONTINUE;
                             break;
                         case "CUDDLE": System.out.println("You cuddle the " + validInputs[i] + ". It is very soft.\n");
                             if (sicknessCountdown > 0)
@@ -745,6 +747,7 @@ public class Player implements Entity {
                 if (input.equals("room") || input.equals("cancel"))
                 {
                     room.describeCurrentRoom(id);
+                    response = Response.CONTINUE;
                     return true;
                 }
                 if (input.equals(validInputs[i].toLowerCase()))
